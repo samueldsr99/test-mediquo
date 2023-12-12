@@ -33,7 +33,7 @@ It contains two sections, the left sidebar and the middle content section.
 ![Layout](layout.png)
 
 ## Finishing
-When your solution is complete, please send us back a git repository with your code to roger.cendros@mediquo.com and david.llort@mediquo.com
+When your solution is complete, please send us back a git repository with your code to juan.cava@mediquo.com
 
 ## Tips
 Take your time, this is a test, so try your best to make the code as readable and understandable as possible. This is a simplification of a larger problem, take that in mind when proposing an architecture for the solution.
