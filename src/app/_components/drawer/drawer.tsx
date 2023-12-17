@@ -15,7 +15,7 @@ export default function Drawer() {
 
       <div className="mt-4 space-y-0.5 overflow-y-auto">
         {rooms.map((room, i) => (
-          <Link key={room.roomId} to="#">
+          <Link key={room.roomId} to={`/rooms/${room.roomId}`}>
             <ChatEntry isCurrent={i === 2} user={room.user} message={room.messages?.at(-1)} />
           </Link>
         ))}
