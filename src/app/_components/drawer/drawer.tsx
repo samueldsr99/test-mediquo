@@ -1,28 +1,36 @@
-import { useLoaderData, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 import { HomeLoader } from "@/app/loader";
 
-import ChatEntry from "./chat-entry";
+import RoomsList from "./rooms-list";
 import SearchInput from "./search-input";
 
 export default function Drawer() {
   const { rooms } = useLoaderData() as HomeLoader;
-  const { roomId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get("search");
+  const [searchState, setSearchState] = useState<string | null>(search);
 
-  const isCurrent = (roomId_: string) => roomId_ === roomId;
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setSearchParams({ search: searchState ?? "" });
+    }, 350);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }, [searchState, setSearchParams]);
+
+  const handleSearchInputChage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchState(e.target.value);
+  };
 
   return (
     <aside className="w-72 px-4 py-2 border-r min-h-screen">
-      <SearchInput placeholder="Search" />
-
-      <div className="mt-4 space-y-0.5 overflow-y-auto">
-        {rooms.map((room) => (
-          <Link key={room.roomId} to={`/rooms/${room.roomId}`}>
-            <ChatEntry isCurrent={isCurrent(room.roomId)} user={room.user} message={room.messages?.at(-1)} />
-          </Link>
-        ))}
-      </div>
+      <SearchInput placeholder="Search" defaultValue={search ?? ""} onChange={handleSearchInputChage} />
+      <RoomsList rooms={rooms} />
     </aside>
   );
 }
