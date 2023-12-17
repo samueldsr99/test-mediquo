@@ -1,5 +1,7 @@
 import { useLoaderData } from "react-router";
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select";
+
 import { RoomLoader } from "../loader";
 
 export default function Navbar() {
@@ -17,7 +19,18 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div>hi</div>
+      <div className="place-self-center border-l border-l-gray-300 pl-4">
+        <Select defaultValue="0">
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Review" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0">Not Reviewed</SelectItem>
+            <SelectItem value="1">Good</SelectItem>
+            <SelectItem value="2">Bad</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </header>
   );
 }
