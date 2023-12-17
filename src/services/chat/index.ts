@@ -1,10 +1,13 @@
+import { camelizeKeys } from "humps";
+
 import { ChatRoom } from "@/models/chat-room";
 
 type GetAllChatRoomsResponse = ChatRoom[];
 type GetChatRoomResponse = ChatRoom;
 
 const _loadChatRoomsFromFile = async () => {
-  return (await fetch("/json/list.json").then((e) => e.json())) as { data: ChatRoom[] };
+  const data = await fetch("/json/list.json").then((e) => e.json());
+  return camelizeKeys(data) as { data: ChatRoom[] };
 };
 
 const getAll = async (): Promise<GetAllChatRoomsResponse> => {
