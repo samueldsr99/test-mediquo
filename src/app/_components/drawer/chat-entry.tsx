@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, isToday } from "date-fns";
 
 import { ChatMessage } from "@/models/chat-message";
 import { ChatUser } from "@/models/chat-user";
@@ -9,6 +9,16 @@ export interface ChatEntryProps {
   isCurrent?: boolean;
   message?: ChatMessage;
 }
+
+const formatDate = (date: Date) => {
+  // if is from today show hour and minutes separated by :, otherwise show only the day
+  // use date-fns
+  if (isToday(date)) {
+    return format(date, "HH:mm");
+  }
+
+  return format(date, "eee");
+};
 
 export default function ChatEntry({ user, message, isCurrent }: ChatEntryProps) {
   return (
@@ -37,7 +47,7 @@ export default function ChatEntry({ user, message, isCurrent }: ChatEntryProps) 
       <div>
         {!!message?.sentAt && (
           <span className={cn("text-xs", isCurrent ? "text-gray-300" : "text-gray-400")}>
-            {format(new Date(message?.sentAt), "hh:mm")}
+            {formatDate(new Date(message.sentAt))}
           </span>
         )}
       </div>
