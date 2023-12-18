@@ -17,7 +17,7 @@ export default createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense>
+      <Suspense fallback={<></>}>
         <HomeLayout />
       </Suspense>
     ),
@@ -26,7 +26,11 @@ export default createBrowserRouter([
       { path: "/", element: <HomePage /> },
       {
         path: "/rooms/:roomId",
-        element: <RoomLayout />,
+        element: (
+          <Suspense fallback={<></>}>
+            <RoomLayout />
+          </Suspense>
+        ),
         loader: roomLoader,
         children: [{ path: "/rooms/:roomId", element: <RoomPage />, loader: roomLoader }],
       },
