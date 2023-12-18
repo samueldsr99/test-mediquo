@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 // Loaders
@@ -16,7 +16,11 @@ const RoomPage = lazy(() => import("./app/[roomId]"));
 export default createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout />,
+    element: (
+      <Suspense>
+        <HomeLayout />
+      </Suspense>
+    ),
     loader: homeLoader,
     children: [
       { path: "/", element: <HomePage /> },
