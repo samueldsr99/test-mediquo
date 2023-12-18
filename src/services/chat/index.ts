@@ -2,6 +2,8 @@ import { camelizeKeys } from "humps";
 
 import { ChatRoom } from "@/models/chat-room";
 
+import data from "../../../json/list.json";
+
 type GetAllChatRoomsRequest = {
   search?: string;
 };
@@ -10,7 +12,6 @@ type GetAllChatRoomsResponse = ChatRoom[];
 type GetChatRoomResponse = ChatRoom;
 
 const _loadChatRoomsFromFile = async () => {
-  const data = await fetch("/json/list.json").then((e) => e.json());
   return camelizeKeys(data) as { data: ChatRoom[] };
 };
 
